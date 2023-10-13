@@ -9,15 +9,31 @@ class FormContainer(UserControl):
 
     def build(self):
         return Container(
-            width=280, 
+            width=280,
             height=80,
             bgcolor="bluegrey500",
-            opacity=1,
+            opacity=0,
             border_radius=40,
             margin=margin.only(left=-20, right=-20),
             animate=animation.Animation(400,"decelerate"),
             animate_opacity=200,
             padding=padding.only(top=45, bottom=45),
+            content=Column(
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+                controls=[
+                    TextField(
+                        height=48,
+                        width=255,
+                        filled=True,
+                        border_color="transparent",
+                        hint_text="Código de instalación",
+                        hint_style=TextStyle(
+                            size=11,
+                            color="black",
+                        ),
+                    )
+                ],
+            ),
         )
 
 
@@ -28,8 +44,13 @@ def main(page: Page):
     page.horizonal_alignment = "center"
     page.vertical_alignment = "center"
 
-    def CreateToDoTask():
-        pass
+    def CreateToDoTask(e):
+        if form.height != 200:
+            form.height, form.opacity  = 200, 1
+            form.update()
+        else:
+            form.height, form.opacity = 80, 0
+            form.update()
 
     _main_column_ = Column(
         scroll="hidden",
@@ -40,7 +61,7 @@ def main(page: Page):
                 alignment=MainAxisAlignment.SPACE_BETWEEN,
                 controls=[
                     Text(
-                        "Lista de tareas", size=20, weight="bold", color="White"),
+                        "Nuevo Reporte", size=20, weight="bold", color="White"),
                         IconButton(
                             icons.ADD_CIRCLE_ROUNDED,
                             icon_size=19,
