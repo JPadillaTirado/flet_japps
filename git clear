@@ -1,0 +1,107 @@
+[33mcommit ea15044d9a5c19daae983dccee9f729ca00e7b4b[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: JPadillaTirado <jorluis7796@hotmail.com>
+Date:   Thu Oct 12 15:37:04 2023 -0500
+
+    Va un gran avance en el proyecto ya se visualiza una estructura simple en flet
+
+[1mdiff --git a/lista_de_tareas.py b/lista_de_tareas.py[m
+[1mindex 4dfdbc7..64b40b9 100644[m
+[1m--- a/lista_de_tareas.py[m
+[1m+++ b/lista_de_tareas.py[m
+[36m@@ -3,10 +3,55 @@[m [mfrom flet import *[m
+ from datetime import datetime[m
+ import sqlite3[m
+ [m
+[32m+[m[32mclass FormContainer(UserControl):[m[41m[m
+[32m+[m[32m    def __init__(self):[m[41m[m
+[32m+[m[32m        super().__init__()[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m    def build(self):[m[41m[m
+[32m+[m[32m        return Container([m[41m[m
+[32m+[m[32m            width=280,[m[41m [m
+[32m+[m[32m            height=80,[m[41m[m
+[32m+[m[32m            bgcolor="bluegrey500",[m[41m[m
+[32m+[m[32m            opacity=1,[m[41m[m
+[32m+[m[32m            border_radius=40,[m[41m[m
+[32m+[m[32m            margin=margin.only(left=-20, right=-20),[m[41m[m
+[32m+[m[32m            animate=animation.Animation(400,"decelerate"),[m[41m[m
+[32m+[m[32m            animate_opacity=200,[m[41m[m
+[32m+[m[32m            padding=padding.only(top=45, bottom=45),[m[41m[m
+[32m+[m[32m        )[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+[32m+[m[41m[m
+ def main(page: Page):[m
+     page.horizonal_alignment = "center"[m
+     page.vertical_alignment = "center"[m
+ [m
+[32m+[m[32m    def CreateToDoTask():[m[41m[m
+[32m+[m[32m        pass[m[41m[m
+[32m+[m[41m[m
+[32m+[m[32m    _main_column_ = Column([m[41m[m
+[32m+[m[32m        scroll="hidden",[m[41m[m
+[32m+[m[32m        expand=True,[m[41m[m
+[32m+[m[32m        alignment=MainAxisAlignment.START,[m[41m[m
+[32m+[m[32m        controls=[[m[41m[m
+[32m+[m[32m            Row([m[41m[m
+[32m+[m[32m                alignment=MainAxisAlignment.SPACE_BETWEEN,[m[41m[m
+[32m+[m[32m                controls=[[m[41m[m
+[32m+[m[32m                    Text([m[41m[m
+[32m+[m[32m                        "Lista de tareas", size=20, weight="bold", color="White"),[m[41m[m
+[32m+[m[32m                        IconButton([m[41m[m
+[32m+[m[32m                            icons.ADD_CIRCLE_ROUNDED,[m[41m[m
+[32m+[m[32m                            icon_size=19,[m[41m[m
+[32m+[m[32m                            on_click=lambda e: CreateToDoTask(e),[m[41m[m
+[32m+[m[32m                        ),[m[41m[m
+[32m+[m[32m                ],[m[41m[m
+[32m+[m[32m            ),[m[41m[m
+[32m+[m[32m            Divider(height=8, color="White"),[m[41m[m
+[32m+[m[32m        ],[m[41m[m
+[32m+[m[41m    [m
+[32m+[m[32m    )[m[41m[m
+     page.add([m
+         Container([m
+             width=1500,[m
+[36m@@ -19,28 +64,28 @@[m [mdef main(page: Page):[m
+                 vertical_alignment=CrossAxisAlignment.CENTER,[m
+                 controls=[[m
+                     Container([m
+[31m-                        width=200,[m
+[32m+[m[32m                        width=280,[m[41m[m
+                         height=600,[m
+                         bgcolor="#0f0f0f",[m
+                         border_radius=40,[m
+                         border= border.all(0.5, "white"),[m
+[31m-                        padding=padding.only (top=35, left=20, right=20)[m
+[31m-                        clip_behavior=ClipBehavior.HARD_EDGE[m
+[31m-                        content= collumn([m
+[32m+[m[32m                        padding=padding.only (top=35, left=20, right=20),[m[41m[m
+[32m+[m[32m                        clip_behavior=ClipBehavior.HARD_EDGE,[m[41m[m
+[32m+[m[32m                        content= Column([m[41m[m
+                             alignment=MainAxisAlignment.CENTER,[m
+                             expand=True,[m
+                             controls=[[m
+[31m-                                main_column_,[m
+[31m-                            ][m
+[31m-                        )[m
+[32m+[m[32m                                _main_column_,[m[41m[m
+[32m+[m[32m                            FormContainer()[m[41m[m
+[32m+[m[32m                            ],[m[41m[m
+[32m+[m[32m                        ),[m[41m[m
+                     )[m
+[31m-                ][m
+[31m-            )[m
+[32m+[m[32m                ],[m[41m[m
+[32m+[m[32m            ),[m[41m[m
+         )[m
+     )[m
+     page.update()[m
+[31m-    pass[m
+[31m-[m
+[32m+[m[32m    form = page.controls[0].content.controls[0].content.controls[1].controls[0][m[41m[m
+ [m
+ if __name__ == "__main__":[m
+     flet.app(target=main)[m
+\ No newline at end of file[m

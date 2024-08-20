@@ -71,7 +71,6 @@ def main(page: Page):
             ),
             Divider(height=8, color="White"),
         ],
-    
     )
     page.add(
         Container(
